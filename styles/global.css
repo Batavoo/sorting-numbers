@@ -1,0 +1,99 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  /* font familys */
+  --ff-sora: "Sora", sans-serif;
+  --ff-roboto-flex: "Roboto Flex", sans-serif;
+  --ff-roboto-mono: "Roboto Mono", sans-serif;
+
+  /* display */
+  --display-large: 800 4.5rem/1.3 var(--ff-sora);
+  --display-medium: 800 2.5rem/1.3 var(--ff-sora);
+  --display-small: 700 2rem/1.3 var(--ff-sora);
+
+  /* overline */
+  --overline-base: 700 1rem/1.5 var(--ff-roboto-mono);
+
+  /* paragraph & label */
+  --paragraph-large: 500 1rem/1.5 var(--ff-roboto-flex);
+  --paragraph-medium: 500 0.875rem/1.5 var(--ff-roboto-flex);
+  --paragraph-small: 500 0.75rem/1.5 var(--ff-roboto-flex);
+  --label-medium: 700 1.25rem/1.5 var(--ff-roboto-flex);
+  --label-small: 700 1rem/1.5 var(--ff-roboto-flex);
+
+  /* content */
+  --content-primary: #ffffff;
+  --content-secondary: #c7c9cc;
+  --content-tertiary: #d9d9d9;
+  --content-brand: #c58de7;
+  --color-inverse: #030203;
+
+  /* background */
+  --background-primary: #020202;
+  --background-secondary: #111012;
+  --background-tertiary: #24222e;
+  --background-brand: #c58de7;
+  --background-gray: #3d3d3d;
+
+  /* Accent */
+  --accent-pink: #d586e0;
+  --accent-blue: #91a1fa;
+  --accent-green: #77c0af;
+  --accent-lime: #d1dc97;
+  --accent-red: #e9a9b3;
+
+  /* gradients */
+  --gradient-border: linear-gradient(
+    90deg,
+    #77c0af 0%,
+    #d1dc97 14.84%,
+    #e9a9b3 32.15%,
+    #d586e0 65.79%,
+    #91a1fa 84.58%
+  );
+  --gradient-background: linear-gradient(90deg, #d586e0 0%, #91a1fa 98.93%);
+  --gradient-content: linear-gradient(90deg, #c7c9cc 0%, #3d3d3d 100%);
+
+  /* spaces */
+  --px-base: 2.25rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-image: url("../assets/imgs/background1x.png");
+  background-color: black;
+  font-family: var(--ff-roboto-flex);
+  color: var(--content-primary);
+  font-size: 1rem;
+}
+
+h1 {
+  font: var(--display-large);
+  color: var(--content-primary);
+}
+
+h2 {
+  font: var(--display-medium);
+  color: var(--content-primary);
+}
+
+h3 {
+  font: var(--display-small);
+  color: var(--content-primary);
+}
