@@ -1,0 +1,12 @@
+main .header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+@media (width >= 60rem) {
+  main .header {
+    grid-area: header;
+    gap: 0.75rem;
+  }
+}

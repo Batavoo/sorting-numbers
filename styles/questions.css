@@ -1,0 +1,28 @@
+.questions {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+  padding-top: 5rem;
+  padding-left: 1.75rem;
+
+  & .question .title {
+    position: relative;
+
+    & img {
+      position: absolute;
+      left: -28px;
+      top: 0;
+    }
+
+    & span {
+      color: var(--content-brand);
+    }
+  }
+}
+
+@media (width >= 60rem) {
+  .questions {
+    grid-area: questions;
+    padding-top: 2.5rem;
+  }
+}

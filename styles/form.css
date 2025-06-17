@@ -1,0 +1,20 @@
+form {
+  & .pre-submit {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+}
+
+@media (width >= 60rem) {
+  form {
+    grid-area: form;
+    padding-top: 0rem;
+
+    & .pre-submit {
+      & .p-medium {
+        font-size: 1rem;
+      }
+    }
+  }
+}

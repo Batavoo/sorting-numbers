@@ -5,10 +5,26 @@
   margin-inline: auto;
 }
 
-@media (width >= 80rem) {
+@media (width >= 60rem) {
   .container {
     --max-width: 80rem;
   }
+}
+
+/* Utility Classes */
+
+.gap-small {
+  gap: 0.75rem;
+}
+.gap-medium {
+  gap: 1rem;
+}
+.gap-large {
+  gap: 1.25rem;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
 
 .px-base {
@@ -33,6 +49,9 @@
 }
 .d-grid {
   display: grid;
+}
+.d-initial {
+  display: initial;
 }
 
 /* Flexbox */

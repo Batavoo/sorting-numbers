@@ -20,9 +20,9 @@
   --ff-roboto-mono: "Roboto Mono", sans-serif;
 
   /* display */
-  --display-large: 800 4.5rem/1.3 var(--ff-sora);
-  --display-medium: 800 2.5rem/1.3 var(--ff-sora);
-  --display-small: 700 2rem/1.3 var(--ff-sora);
+  --display-large: 800 2.5rem/1.3 var(--ff-sora);
+  --display-medium: 800 2rem/1.3 var(--ff-sora);
+  --display-small: 700 1.5rem/1.3 var(--ff-sora);
 
   /* overline */
   --overline-base: 700 1rem/1.5 var(--ff-roboto-mono);
@@ -83,7 +83,22 @@ body {
   font-size: 1rem;
 }
 
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.9) 22.66%,
+    rgba(0, 0, 0, 0.54) 100%
+  );
+}
+
+.desktop-only {
+  display: none;
+}
+
 h1 {
+  text-transform: uppercase;
   font: var(--display-large);
   color: var(--content-primary);
 }
@@ -96,4 +111,40 @@ h2 {
 h3 {
   font: var(--display-small);
   color: var(--content-primary);
+}
+
+h4 {
+  text-transform: uppercase;
+  font: var(--label-medium);
+  color: var(--content-primary);
+}
+
+.p-medium {
+  font: var(--paragraph-medium);
+  color: var(--content-tertiary);
+}
+
+.p-small {
+  font: var(--paragraph-small);
+  color: var(--content-tertiary);
+}
+
+span.overline {
+  text-transform: uppercase;
+  font: var(--overline-base);
+  background: linear-gradient(90deg, #c7c9cc 0%, #aaacae 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@media (width >= 60rem) {
+  .container {
+    --max-width: 80rem;
+    --display-large: 800 4.5rem/1.3 var(--ff-sora);
+  }
+
+  .desktop-only {
+    display: initial;
+  }
 }

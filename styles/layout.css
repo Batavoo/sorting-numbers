@@ -1,0 +1,27 @@
+.header {
+  justify-content: center;
+  padding-top: 3rem;
+}
+
+@media (width >= 60rem) {
+  .header {
+    justify-content: flex-start;
+    padding-top: 6rem;
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      "header form"
+      "questions form";
+    justify-items: center;
+    align-items: center;
+    column-gap: 7rem;
+  }
+}
+
+/* 
+-Quando o main for no mobile, ele vai ser flex e a direction vai ser column.
+-Quando for no desktop, ele vai ser grid e vai ser um 2x2 grid
+*/
