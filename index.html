@@ -36,14 +36,42 @@
               </p>
             </div>
 
-            <div class="inputs">
-              <input type="number" placeholder="Min" />
-              <input type="number" placeholder="Max" />
-              <input type="number" placeholder="Quantidade" />
+            <div class="number-inputs">
+              <div class="input-wrapper">
+                <label for="quantity">Números</label>
+                <div class="rainbow">
+                  <input type="number" id="quantity" />
+                </div>
+              </div>
+              <div class="input-wrapper">
+                <label for="min">De</label>
+                <div class="rainbow">
+                  <input type="number" id="min" />
+                </div>
+              </div>
+              <div class="input-wrapper">
+                <label for="max">Até</label>
+                <div class="rainbow">
+                  <input type="number" id="max" />
+                </div>
+              </div>
+            </div>
+
+            <div class="checkbox-wrapper">
+              <label class="custom-checkbox">
+                <input type="checkbox" name="allowRepeats" />
+                <span class="checkmark"></span>
+                Não repetir números
+              </label>
             </div>
 
             <div class="submit-button">
-              <button type="submit">Sortear</button>
+              <div class="rainbow">
+                <button type="submit">
+                  Sortear
+                  <img src="./assets/icons/arrow-right.svg" alt="arrow" />
+                </button>
+              </div>
             </div>
           </div>
         </form>
