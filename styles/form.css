@@ -1,170 +1,260 @@
-form {
-  & .pre-submit {
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-
-    & .title {
-      padding-top: 3rem;
-    }
-
-    & .number-inputs {
+.tabs-sorteio {
+  form {
+    & .pre-submit {
       display: flex;
-      gap: 0.75rem;
+      flex-direction: column;
+      gap: 2.5rem;
 
-      & .input-wrapper {
+      & .title {
+        padding-top: 3rem;
+      }
+
+      & .number-inputs {
         display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
+        gap: 0.75rem;
 
-        & label {
-          font: var(--label-small);
-          text-align: center;
-          color: var(--content-secondary);
-          text-transform: uppercase;
-          transition: color 0.3s ease;
+        & .input-wrapper {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+
+          & label {
+            font: var(--label-small);
+            text-align: center;
+            color: var(--content-secondary);
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+          }
+
+          & .rainbow {
+            position: relative;
+            border-radius: 0.5rem;
+            padding: 2px;
+            z-index: 1;
+            /* This is important to contain the pseudo-element's rounded corners */
+            overflow: hidden;
+          }
+
+          & .rainbow::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-border);
+
+            /* Make it invisible by default */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+
+            /* 3. The magic trick: place it BEHIND the input */
+            z-index: -1;
+          }
+
+          & input {
+            width: 5.375rem;
+            height: 4rem;
+            border: none;
+            border-radius: 0.5rem;
+            background-color: var(--background-secondary);
+            outline: none;
+            font: var(--display-medium);
+            color: var(--content-primary);
+            text-align: center;
+            appearance: none;
+            -moz-appearance: none;
+            transition: background-color 0.3s ease;
+          }
+
+          /* Chrome, Safari, Edge, Opera */
+          input::-webkit-outer-spin-button,
+          input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+          }
+
+          /* Firefox */
+          input[type="number"] {
+            -moz-appearance: textfield;
+          }
         }
 
-        & .rainbow {
+        & .input-wrapper:hover .rainbow::before,
+        & .input-wrapper:focus-within .rainbow::before {
+          opacity: 1;
+        }
+
+        & .input-wrapper:hover,
+        & .input-wrapper:focus-within {
+          & label {
+            color: var(--content-brand);
+          }
+
+          & .rainbow {
+            opacity: 1;
+
+            & input {
+              background-color: #24222e;
+            }
+          }
+        }
+      }
+
+      .custom-checkbox {
+        display: inline-flex;
+        width: fit-content;
+        align-items: center;
+        gap: 0.75rem; /* Space between slider and text */
+        cursor: pointer;
+        user-select: none; /* Prevents text selection on click */
+        font: var(--paragraph-medium);
+        color: var(--content-secondary);
+      }
+
+      /* 1. THE RESET: Hide the original checkbox but keep it functional */
+      .custom-checkbox input[type="checkbox"] {
+        -webkit-appearance: none;
+        appearance: none;
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+      }
+
+      /* 2. THE SLIDER TRACK (the .checkmark span) */
+      .custom-checkbox .checkmark {
+        position: relative; /* Needed to position the knob inside */
+        display: inline-block;
+        width: 2.75rem; /* 44px */
+        height: 1.5rem; /* 24px */
+        background-color: var(--background-tertiary);
+        border-radius: 100vw; /* This creates the pill shape */
+        transition: background-color 0.3s ease;
+      }
+
+      /* 3. THE SLIDER KNOB (created with a pseudo-element) */
+      .custom-checkbox .checkmark::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0.25rem; /* 4px of padding from the left */
+        width: 1rem; /* 16px */
+        height: 1rem; /* 16px */
+        background-color: white;
+        border-radius: 50%; /* Makes it a circle */
+        /* Center the knob vertically and prepare for sliding */
+        transform: translateY(-50%);
+        transition: transform 0.3s ease;
+      }
+
+      /* 4. THE "CHECKED" STATE: How it looks when toggled on */
+      .custom-checkbox input[type="checkbox"]:checked + .checkmark {
+        background: var(--gradient-background); /* Change track color */
+      }
+
+      .custom-checkbox input[type="checkbox"]:checked + .checkmark::before {
+        /* Slide the knob to the right */
+        transform: translate(1.25rem, -50%);
+      }
+
+      /* 5. ACCESSIBILITY: Add a focus ring for keyboard users */
+      .custom-checkbox input[type="checkbox"]:focus-visible + .checkmark {
+        outline: 2px solid var(--content-brand);
+        outline-offset: 2px;
+      }
+
+      .submit-button {
+        button {
+          all: unset;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          width: 100%;
+          height: 3.5rem;
+          border-radius: 8px;
+          text-transform: uppercase;
+          font: var(--label-small);
+          color: var(--content-primary);
+          background-color: var(--background-tertiary);
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+
+        .rainbow {
           position: relative;
-          border-radius: 0.5rem;
+          border-radius: 8px;
           padding: 2px;
           z-index: 1;
-          /* This is important to contain the pseudo-element's rounded corners */
           overflow: hidden;
         }
 
-        & .rainbow::before {
+        .rainbow::before {
           content: "";
           position: absolute;
           inset: 0;
           background: var(--gradient-border);
-
-          /* Make it invisible by default */
           opacity: 0;
           transition: opacity 0.3s ease;
-
-          /* 3. The magic trick: place it BEHIND the input */
           z-index: -1;
+
+          /* Make the gradient larger so it can be moved */
+          background-size: 400% 400%;
         }
 
-        & input {
-          width: 5.375rem;
-          height: 4rem;
-          border: none;
-          border-radius: 0.5rem;
-          background-color: var(--background-secondary);
-          outline: none;
-          font: var(--display-medium);
-          color: var(--content-primary);
-          text-align: center;
-          appearance: none;
-          -moz-appearance: none;
-          transition: background-color 0.3s ease;
-        }
+        .rainbow:hover,
+        .rainbow:focus-within {
+          /* Target the pseudo-element on hover */
+          &::before {
+            opacity: 1;
+            /* Add this to start the border animation on hover/focus */
+            animation: move-gradient 3s linear infinite;
+          }
 
-        /* Chrome, Safari, Edge, Opera */
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-          -webkit-appearance: none;
-          margin: 0;
-        }
+          /* Target the button on hover */
+          & button {
+            background-color: var(--background-secondary);
 
-        /* Firefox */
-        input[type="number"] {
-          -moz-appearance: textfield;
-        }
-      }
-
-      & .input-wrapper:hover .rainbow::before,
-      & .input-wrapper:focus-within .rainbow::before {
-        opacity: 1;
-      }
-
-      & .input-wrapper:hover,
-      & .input-wrapper:focus-within {
-        & label {
-          color: var(--content-brand);
-        }
-
-        & .rainbow {
-          opacity: 1;
-
-          & input {
-            background-color: #24222e;
+            & img {
+              animation: move-arrow 1.5s ease-in-out infinite;
+            }
           }
         }
       }
     }
+  }
 
-    .custom-checkbox {
-      display: inline-flex;
-      width: fit-content;
+  .post-submit {
+    display: flex;
+    flex-direction: column;
+    padding-top: 4.375rem;
+    gap: 3rem;
+
+    .title {
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 0.75rem; /* Space between slider and text */
-      cursor: pointer;
-      user-select: none; /* Prevents text selection on click */
-      font: var(--paragraph-medium);
-      color: var(--content-secondary);
+      gap: 0.5rem;
     }
 
-    /* 1. THE RESET: Hide the original checkbox but keep it functional */
-    .custom-checkbox input[type="checkbox"] {
-      -webkit-appearance: none;
-      appearance: none;
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      margin: -1px;
-      padding: 0;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      border: 0;
+    .results {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      justify-items: center;
+      gap: 1rem;
+
+      & .result-item {
+        /* Aqui vai ter todo o estilo FINAL do container animado (o fundo rosa) */
+
+        & span {
+          /* Aqui vai ter todo o estilo FINAL do número sorteado */
+        }
+      }
     }
 
-    /* 2. THE SLIDER TRACK (the .checkmark span) */
-    .custom-checkbox .checkmark {
-      position: relative; /* Needed to position the knob inside */
-      display: inline-block;
-      width: 2.75rem; /* 44px */
-      height: 1.5rem; /* 24px */
-      background-color: var(--background-tertiary);
-      border-radius: 100vw; /* This creates the pill shape */
-      transition: background-color 0.3s ease;
-    }
-
-    /* 3. THE SLIDER KNOB (created with a pseudo-element) */
-    .custom-checkbox .checkmark::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 0.25rem; /* 4px of padding from the left */
-      width: 1rem; /* 16px */
-      height: 1rem; /* 16px */
-      background-color: white;
-      border-radius: 50%; /* Makes it a circle */
-      /* Center the knob vertically and prepare for sliding */
-      transform: translateY(-50%);
-      transition: transform 0.3s ease;
-    }
-
-    /* 4. THE "CHECKED" STATE: How it looks when toggled on */
-    .custom-checkbox input[type="checkbox"]:checked + .checkmark {
-      background: var(--gradient-background); /* Change track color */
-    }
-
-    .custom-checkbox input[type="checkbox"]:checked + .checkmark::before {
-      /* Slide the knob to the right */
-      transform: translate(1.25rem, -50%);
-    }
-
-    /* 5. ACCESSIBILITY: Add a focus ring for keyboard users */
-    .custom-checkbox input[type="checkbox"]:focus-visible + .checkmark {
-      outline: 2px solid var(--content-brand);
-      outline-offset: 2px;
-    }
-
-    .submit-button {
+    .redo-button {
       button {
         all: unset;
         display: flex;
@@ -251,17 +341,20 @@ form {
 }
 
 @media (width >= 60rem) {
-  form {
+  .tabs-sorteio {
     grid-area: form;
-    padding-top: 0rem;
+    padding-top: 5rem;
+    width: 100%;
 
-    & .pre-submit {
-      & .p-medium {
-        font-size: 1rem;
-      }
+    form {
+      & .pre-submit {
+        & .p-medium {
+          font-size: 1rem;
+        }
 
-      & .title {
-        padding-top: 0rem;
+        & .title {
+          padding-top: 0rem;
+        }
       }
     }
   }
