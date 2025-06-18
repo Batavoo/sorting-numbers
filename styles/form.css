@@ -284,6 +284,7 @@
         color: var(--content-primary);
         background-color: var(--background-tertiary);
         cursor: pointer;
+        user-select: none;
         transition: background-color 0.3s ease;
       }
 
@@ -322,6 +323,8 @@
           background-color: var(--background-secondary);
 
           & .replay-arrow {
+            transform-origin: center;
+            transform-box: fill-box;
             animation: spin-replay 1.5s linear infinite;
           }
         }
