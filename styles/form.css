@@ -240,16 +240,30 @@
     }
 
     .results {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      justify-items: center;
-      gap: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      padding-block: 0.75rem;
+      max-height: 18.75rem;
+      overflow-y: scroll;
+      scroll-behavior: smooth;
 
       & .result-item {
         /* Aqui vai ter todo o estilo FINAL do container animado (o fundo rosa) */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: none;
 
         & span {
           /* Aqui vai ter todo o estilo FINAL do número sorteado */
+          font-size: 3rem;
+          font-family: var(--ff-roboto-mono);
+          font-weight: 700;
+          color: var(--color-inverse);
+          line-height: 150%;
+          transform: scale(1);
         }
       }
     }
@@ -306,12 +320,169 @@
         & button {
           background-color: var(--background-secondary);
 
-          & img {
-            animation: move-arrow 1.5s ease-in-out infinite;
+          & .replay-arrow {
+            animation: spin-replay 1.5s linear infinite;
           }
         }
       }
     }
+  }
+}
+
+@keyframes spin-replay {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.text-animation {
+  animation: text-transform 3s linear forwards;
+}
+
+/* This is the container for the spinning border effect */
+.background-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 16px;
+  position: relative;
+}
+
+.background-animation > span {
+  position: relative;
+  z-index: 2;
+}
+
+.background-animation::before {
+  content: "";
+  position: absolute;
+  width: 95px;
+  height: 95px;
+  border-radius: 16px;
+  top: start;
+  left: start;
+  background: var(--content-brand);
+  z-index: 1;
+  animation: spin 3s linear forwards;
+}
+
+@keyframes spin {
+  0% {
+    opacity: 0;
+    transform: rotate(0deg);
+  }
+  7.69% {
+    opacity: 1;
+
+    transform: rotate(18deg);
+  }
+  15.38% {
+    opacity: 1;
+    transform: rotate(36deg);
+  }
+  23.07% {
+    opacity: 1;
+    transform: rotate(54deg);
+  }
+  30.76% {
+    opacity: 1;
+    transform: rotate(72deg);
+  }
+  38.46% {
+    opacity: 1;
+    transform: rotate(90deg);
+  }
+  46.15% {
+    opacity: 1;
+    transform: rotate(108deg);
+  }
+  53.84% {
+    opacity: 1;
+    transform: rotate(126deg);
+  }
+  61.53% {
+    opacity: 1;
+    transform: rotate(144deg);
+  }
+  69.23% {
+    opacity: 1;
+    transform: rotate(162deg);
+  }
+  76.92% {
+    opacity: 1;
+    transform: rotate(180deg);
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes text-transform {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+    color: black;
+  }
+  7.69% {
+    opacity: 0;
+    transform: scale(1);
+    color: black;
+  }
+  15.38% {
+    opacity: 0;
+    transform: scale(1);
+    color: black;
+  }
+  23.07% {
+    opacity: 0;
+    transform: scale(1);
+    color: black;
+  }
+  30.76% {
+    opacity: 1;
+    transform: scale(1);
+    color: black;
+  }
+  38.46% {
+    opacity: 1;
+    transform: scale(1);
+    color: black;
+  }
+  46.15% {
+    opacity: 1;
+    transform: scale(1);
+    color: black;
+  }
+  53.84% {
+    opacity: 1;
+    transform: scale(1);
+    color: black;
+  }
+  61.53% {
+    opacity: 1;
+    transform: scale(1);
+    color: black;
+  }
+  69.23% {
+    opacity: 1;
+    transform: scale(1);
+    color: black;
+  }
+  76.92% {
+    opacity: 1;
+    transform: scale(1);
+    color: black;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(0.9);
+    color: var(--content-brand);
   }
 }
 
@@ -327,7 +498,6 @@
   }
 }
 
-/* Animation for the moving gradient border */
 @keyframes move-gradient {
   0% {
     background-position: 0% 50%;
