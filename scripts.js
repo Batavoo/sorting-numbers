@@ -26,6 +26,9 @@ const redoButton = document.querySelector(".redo-button .rainbow button");
 // Lista de resultados
 const resultList = document.querySelector(".results");
 
+// Span que muda por iteração
+const iterationTurn = document.querySelector(".title .overline");
+
 sortButton.addEventListener("click", function (event) {
   event.preventDefault();
   let allInputsFilled =
@@ -68,7 +71,6 @@ sortButton.addEventListener("click", function (event) {
     parseInt(maxRangeInput.value),
     checkboxRepeatInput.checked
   );
-  console.log(results);
   resultList.innerHTML = ""; // Clear previous results
   // swap screens
   sortWrapper.classList.add("d-none");
@@ -84,10 +86,8 @@ sortButton.addEventListener("click", function (event) {
       resultText.classList.add("text-animation");
       resultText.textContent = result;
 
+      iterationTurn.textContent = `${index + 1}º RESULTADO`;
       resultList.appendChild(resultItem);
-
-      console.log(`estrutura resultItem: ${resultItem.innerHTML}`);
-      console.log(`adicionar ${resultText.textContent}`);
     }, index * 3000); // same time as the animation
   });
 });
@@ -114,10 +114,6 @@ function handleInputChange(event) {
 function sortNumbers(quantity, min, max, notAllowRepeats) {
   const results = [];
   const usedNumbers = [];
-
-  console.log(
-    `Sorting ${quantity} numbers between ${min} and ${max}, allow repeats: ${!notAllowRepeats}`
-  );
 
   for (let i = 0; i < quantity; i++) {
     let randomNumber;
