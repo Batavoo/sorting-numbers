@@ -4,6 +4,13 @@ const minRangeInput = document.querySelector("#min");
 const maxRangeInput = document.querySelector("#max");
 const checkboxRepeatInput = document.querySelector("#allow-repeats");
 
+// Resetando os inputs no reload
+quantityInput.value = "";
+minRangeInput.value = "";
+maxRangeInput.value = "";
+checkboxRepeatInput.checked = false;
+
+// Formatando os inputs
 quantityInput.oninput = handleInputChange;
 minRangeInput.oninput = handleInputChange;
 maxRangeInput.oninput = handleInputChange;
@@ -15,6 +22,9 @@ const resultsWrapper = document.querySelector("#result-tab");
 // Buttons
 const sortButton = document.querySelector(".submit-button .rainbow button");
 const redoButton = document.querySelector(".redo-button .rainbow button");
+
+// Lista de resultados
+const resultList = document.querySelector(".results");
 
 sortButton.addEventListener("click", function (event) {
   event.preventDefault();
@@ -31,33 +41,55 @@ sortButton.addEventListener("click", function (event) {
   let isQuantityBiggerThanRange =
     parseInt(quantityInput.value) >
       parseInt(maxRangeInput.value) - parseInt(minRangeInput.value) + 1 &&
-    checkboxRepeatInput.checked;
+    checkboxRepeatInput.checked; // se isso retornar true, significa que a quantidade é maior que o intervalo
+  // se a quantidade for maior que o intervalo, não faz sentido permitir repetições
 
-  console.log(
-    `All inputs filled: ${allInputsFilled}, 
-    Min < Max: ${isMinLessThanMax},
-    Quantity valid: ${isQuantityValid}, 
-    Quantity bigger than range: ${isQuantityBiggerThanRange}`
-  );
-
-  if (
-    allInputsFilled &&
-    isMinLessThanMax &&
-    isQuantityValid &&
-    isQuantityBiggerThanRange
-  ) {
-    alert("Por favor, preencha todos os campos corretamente.");
-    return;
+  switch (true) {
+    case !allInputsFilled:
+      alert("Por favor, preencha todos os campos.");
+      return;
+    case !isMinLessThanMax:
+      alert("O valor mínimo deve ser menor que o valor máximo.");
+      return;
+    case !isQuantityValid:
+      alert("A quantidade deve ser entre 1 e 1000.");
+      return;
+    case isQuantityBiggerThanRange:
+      alert(
+        "A quantidade não pode ser maior que o intervalo quando repetições não são permitidas."
+      );
+      return;
   }
-  sortWrapper.classList.add("d-none");
-  resultsWrapper.classList.remove("d-none");
 
-  sortNumbers(
-    quantityInput.value,
-    minRangeInput.value,
-    maxRangeInput.value,
+  // If all validations pass, proceed with sorting
+  results = sortNumbers(
+    parseInt(quantityInput.value),
+    parseInt(minRangeInput.value),
+    parseInt(maxRangeInput.value),
     checkboxRepeatInput.checked
   );
+  console.log(results);
+  resultList.innerHTML = ""; // Clear previous results
+  // swap screens
+  sortWrapper.classList.add("d-none");
+  resultsWrapper.classList.remove("d-none");
+  // start adding sorting results
+  results.forEach((result, index) => {
+    setTimeout(() => {
+      const resultItem = document.createElement("div");
+      const resultText = document.createElement("span");
+
+      resultItem.append(resultText);
+      resultItem.classList.add("result-item", "background-animation");
+      resultText.classList.add("text-animation");
+      resultText.textContent = result;
+
+      resultList.appendChild(resultItem);
+
+      console.log(`estrutura resultItem: ${resultItem.innerHTML}`);
+      console.log(`adicionar ${resultText.textContent}`);
+    }, index * 3000); // same time as the animation
+  });
 });
 
 redoButton.addEventListener("click", function (event) {
@@ -84,22 +116,24 @@ function sortNumbers(quantity, min, max, notAllowRepeats) {
   const usedNumbers = [];
 
   console.log(
-    `Sorting ${quantity} numbers between ${min} and ${max}, do not allow repeats: ${notAllowRepeats}`
+    `Sorting ${quantity} numbers between ${min} and ${max}, allow repeats: ${!notAllowRepeats}`
   );
 
-  for (i = 0; i < quantity; i++) {
-    // Generate a random number within the specified range
-    let randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-    // If repeats are not allowed, check if the number has already been used
+  for (let i = 0; i < quantity; i++) {
+    let randomNumber;
+    do {
+      randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    } while (
+      (notAllowRepeats && usedNumbers.includes(randomNumber)) ||
+      randomNumber < min ||
+      randomNumber > max
+    );
+
+    results.push(randomNumber);
     if (notAllowRepeats) {
-      while (usedNumbers.includes(randomNumber)) {
-        randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-      }
       usedNumbers.push(randomNumber);
     }
-    results.push(randomNumber);
   }
 
-  console.log("Generated numbers:", results);
   return results;
 }
